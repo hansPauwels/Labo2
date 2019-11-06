@@ -11,8 +11,9 @@ public class RandomCypherStrategy implements CodeerStrategy {
         }
 
         char[] textArray = text.toCharArray();
-        String result = String.valueOf(randomCypher.encypher(textArray));
-        return result;
+
+
+        return String.valueOf(randomCypher.encypher(textArray));
     }
 
     @Override
@@ -22,8 +23,8 @@ public class RandomCypherStrategy implements CodeerStrategy {
         }
 
         char[] textArray = text.toCharArray();
-        String result = String.valueOf(randomCypher.decypher(textArray));
 
-        return result;
+
+        return String.valueOf(randomCypher.decypher(textArray));
     }
 }
