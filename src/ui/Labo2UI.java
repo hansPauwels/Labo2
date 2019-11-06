@@ -1,7 +1,9 @@
 package ui;
-
-import domain.CaesarStrategyFactoryFactory;
-import domain.CodeerContextFactory;
+//
+//import domain.CaesarStrategyFactoryFactory;
+//import domain.CodeerContextFactory;
+import domain.CaesarStrategy;
+import domain.CodeerContext;
 import domain.SpiegelStrategy;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -16,7 +18,7 @@ import javafx.stage.Stage;
 public class Labo2UI extends Application {
     private Label choiceLabel = new Label("Choose method: ");
     private ComboBox<String> choiceCombo = new ComboBox<>();
-    private CodeerContextFactory codeerContextFactory;
+    private CodeerContext codeerContext;
     private Label encodeChoiceLabel = new Label("Encode? / Decode?");
     private ComboBox<String> encodeOrDecodeCombo = new ComboBox<>();
     private Label textLabel = new Label("Enter text: ");
@@ -51,25 +53,25 @@ public class Labo2UI extends Application {
             String choice = encodeOrDecodeCombo.getSelectionModel().getSelectedItem();
             String text = textField.getText();
             String result = "";
-            codeerContextFactory = new CodeerContextFactory(new CaesarStrategyFactoryFactory(), text);
+            codeerContext = new CodeerContext(new CaesarStrategy(), text);
             if(strategy != null || !strategy.trim().isEmpty()) {
                 if(strategy.equals("Caesar cipher")) {
-                    codeerContextFactory.setStrategy(new CaesarStrategyFactoryFactory());
+                    codeerContext.setStrategy(new CaesarStrategy());
                     if(choice.equals("Encode")) {
-                        result = codeerContextFactory.encode();
+                        result = codeerContext.encode();
                         resultLabel.setText(result);
                     } else {
-                        result = codeerContextFactory.decode();
+                        result = codeerContext.decode();
                         resultLabel.setText(result);
                     }
                 } else if(strategy.equals("Mirror text")) {
                     //CodeerContext spiegelContext = new CodeerContext(new SpiegelStrategy(), text);
-                    codeerContextFactory.setStrategy(new SpiegelStrategy());
+                    codeerContext.setStrategy(new SpiegelStrategy());
                     if(choice.equals("Encode")) {
-                        result = codeerContextFactory.encode();
+                        result = codeerContext.encode();
                         resultLabel.setText(result);
                     } else {
-                        result = codeerContextFactory.decode();
+                        result = codeerContext.decode();
                         resultLabel.setText(result);
                     }
                 }
