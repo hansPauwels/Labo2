@@ -1,11 +1,11 @@
 package ui;
-//
-//import domain.CaesarStrategyFactoryFactory;
-//import domain.CodeerContextFactory;
+
 import domain.CaesarStrategy;
 import domain.CodeerContext;
 import domain.SpiegelStrategy;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -15,21 +15,22 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 
-public class Labo2UI extends Application {
-    private Label choiceLabel = new Label("Choose method: ");
-    private ComboBox<String> choiceCombo = new ComboBox<>();
-    private CodeerContext codeerContext;
-    private Label encodeChoiceLabel = new Label("Encode? / Decode?");
-    private ComboBox<String> encodeOrDecodeCombo = new ComboBox<>();
-    private Label textLabel = new Label("Enter text: ");
-    private TextField textField = new TextField();
-    private Button enterButton = new Button("Go");
-    private Label resultLabel = new Label();
+public class Labo2UI {
 
-    @Override
-    public void start(Stage stage) throws Exception {
-        choiceCombo.getItems().add("Caesar cipher");
-        choiceCombo.getItems().add("Mirror text");
+    public Labo2UI(Stage stage) {
+        Label choiceLabel = new Label("Choose method: ");
+        ComboBox<String> choiceCombo = new ComboBox<>();
+        CodeerContext codeerContext = new CodeerContext();
+        Label encodeChoiceLabel = new Label("Encode? / Decode?");
+
+        ComboBox<String> encodeOrDecodeCombo = new ComboBox<>();
+        ObservableList<String> types = FXCollections.observableList(codeerContext.getStrategyLijst());
+        choiceCombo.setItems(types);
+        Label textLabel = new Label("Enter text: ");
+        TextField textField = new TextField();
+        Button enterButton = new Button("Go");
+        Label resultLabel = new Label();
+
         encodeOrDecodeCombo.getItems().add("Encode");
         encodeOrDecodeCombo.getItems().add("Decode");
         GridPane root = new GridPane();
@@ -47,35 +48,42 @@ public class Labo2UI extends Application {
         root.add(resultLabel, 0,8);
 
         stage.show();
-
-        enterButton.setOnAction(actionEvent -> {
-            String strategy = choiceCombo.getSelectionModel().getSelectedItem();
-            String choice = encodeOrDecodeCombo.getSelectionModel().getSelectedItem();
-            String text = textField.getText();
-            String result = "";
-            codeerContext = new CodeerContext(new CaesarStrategy(), text);
-            if(strategy != null || !strategy.trim().isEmpty()) {
-                if(strategy.equals("Caesar cipher")) {
-                    codeerContext.setStrategy(new CaesarStrategy());
-                    if(choice.equals("Encode")) {
-                        result = codeerContext.encode();
-                        resultLabel.setText(result);
-                    } else {
-                        result = codeerContext.decode();
-                        resultLabel.setText(result);
-                    }
-                } else if(strategy.equals("Mirror text")) {
-                    //CodeerContext spiegelContext = new CodeerContext(new SpiegelStrategy(), text);
-                    codeerContext.setStrategy(new SpiegelStrategy());
-                    if(choice.equals("Encode")) {
-                        result = codeerContext.encode();
-                        resultLabel.setText(result);
-                    } else {
-                        result = codeerContext.decode();
-                        resultLabel.setText(result);
-                    }
-                }
-            }
-        });
     }
+
+//    @Override
+//    public void start(Stage stage) throws Exception {
+////        choiceCombo.getItems().add("Caesar cipher");
+////        choiceCombo.getItems().add("Mirror text");
+//
+//
+//        enterButton.setOnAction(actionEvent -> {
+//            String strategy = choiceCombo.getSelectionModel().getSelectedItem();
+//            String choice = encodeOrDecodeCombo.getSelectionModel().getSelectedItem();
+//            String text = textField.getText();
+//            String result = "";
+//
+//            if(strategy != null || !strategy.trim().isEmpty()) {
+//                if(strategy.equals("Caesar cipher")) {
+//                    codeerContext.setStrategy(new CaesarStrategy());
+//                    if(choice.equals("Encode")) {
+//                        result = codeerContext.encode();
+//                        resultLabel.setText(result);
+//                    } else {
+//                        result = codeerContext.decode();
+//                        resultLabel.setText(result);
+//                    }
+//                } else if(strategy.equals("Mirror text")) {
+//                    //CodeerContext spiegelContext = new CodeerContext(new SpiegelStrategy(), text);
+//                    codeerContext.setStrategy(new SpiegelStrategy());
+//                    if(choice.equals("Encode")) {
+//                        result = codeerContext.encode();
+//                        resultLabel.setText(result);
+//                    } else {
+//                        result = codeerContext.decode();
+//                        resultLabel.setText(result);
+//                    }
+//                }
+//            }
+//        });
+//    }
 }

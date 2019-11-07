@@ -1,9 +1,9 @@
 package domain;
 
 public enum StrategyType {
-    A("CaesarStrategy", "domain.CaesarStrategy"),
-    B("RandomCypherStrategy", "domain.RandomCypherStrategy"),
-    C("SpiegelStrategy", "domain.SpiegelStrategy");
+    CAESAR("CaesarStrategy", "domain.CaesarStrategy"),
+    RANDOM("RandomCypherStrategy", "domain.RandomCypherStrategy"),
+    MIRROR("SpiegelStrategy", "domain.SpiegelStrategy");
 
     private final String omschrijving;
     private final String klasseNaam;

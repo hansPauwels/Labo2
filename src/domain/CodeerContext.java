@@ -1,12 +1,15 @@
 package domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CodeerContext {
     private String text;
     private CodeerStrategy strategy;
 
-    public CodeerContext(CodeerStrategy type, String text) {
-        setText(text);
-        setStrategy(type);
+    public CodeerContext() {
+        /*setText(text);
+        setStrategy(type);*/
     }
 
     public void setStrategy(CodeerStrategy type) {
@@ -15,6 +18,14 @@ public class CodeerContext {
         }
 
         this.strategy = type;
+    }
+
+    public List<String> getStrategyLijst() {
+        List<String> result = new ArrayList<>();
+        for(StrategyType type : StrategyType.values()) {
+            result.add(type.toString());
+        }
+        return result;
     }
 
     private void setText(String text) {
