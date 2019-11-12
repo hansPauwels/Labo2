@@ -2,6 +2,7 @@ package ui;
 
 import domain.CaesarStrategy;
 import domain.CodeerContext;
+import domain.RandomCypherStrategy;
 import domain.SpiegelStrategy;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -48,6 +49,50 @@ public class Labo2UI {
         root.add(resultLabel, 0,8);
 
         stage.show();
+
+        enterButton.setOnAction(actionEvent -> {
+            String strategy = choiceCombo.getSelectionModel().getSelectedItem();
+            String choice = encodeOrDecodeCombo.getSelectionModel().getSelectedItem();
+            String text = textField.getText();
+            String result;
+
+            codeerContext.setText(text);
+            if(strategy == null || strategy.trim().isEmpty()) {
+                throw new IllegalArgumentException("Strategy cannot be empty");
+            }
+
+            if(strategy.equals("CAESAR")) {
+                codeerContext.setStrategy(new CaesarStrategy());
+
+                if(choice.equals("Encode")) {
+                        result = codeerContext.encode();
+                        resultLabel.setText(result);
+                    } else {
+                        result = codeerContext.decode();
+                        resultLabel.setText(result);
+                    }
+                } else if(strategy.equals("MIRROR")) {
+                    //CodeerContext spiegelContext = new CodeerContext(new SpiegelStrategy(), text);
+                    codeerContext.setStrategy(new SpiegelStrategy());
+                    if(choice.equals("Encode")) {
+                        result = codeerContext.encode();
+                        resultLabel.setText(result);
+                    } else {
+                        result = codeerContext.decode();
+                        resultLabel.setText(result);
+                    }
+            } else if(strategy.equals("RANDOM")) {
+                codeerContext.setStrategy(new RandomCypherStrategy());
+                if(choice.equals("Encode")) {
+                    result = codeerContext.encode();
+                    resultLabel.setText(result);
+                } else {
+                    result = codeerContext.decode();
+                    resultLabel.setText(result);
+                }
+
+            }
+        });
     }
 
 //    @Override

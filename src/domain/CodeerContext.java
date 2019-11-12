@@ -28,7 +28,7 @@ public class CodeerContext {
         return result;
     }
 
-    private void setText(String text) {
+    public void setText(String text) {
         if(text == null || text.trim().isEmpty()) {
             throw new IllegalArgumentException("Text cannot be empty");
         }
