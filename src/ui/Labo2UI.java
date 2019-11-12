@@ -1,9 +1,6 @@
 package ui;
 
-import domain.CaesarStrategy;
-import domain.CodeerContext;
-import domain.RandomCypherStrategy;
-import domain.SpiegelStrategy;
+import domain.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -62,7 +59,7 @@ public class Labo2UI {
             }
 
             if(strategy.equals("CAESAR")) {
-                codeerContext.setStrategy(new CaesarStrategy());
+                codeerContext.setStrategy(StrategyFactory.createStrategy("CAESAR"));
 
                 if(choice.equals("Encode")) {
                         result = codeerContext.encode();
@@ -73,7 +70,7 @@ public class Labo2UI {
                     }
                 } else if(strategy.equals("MIRROR")) {
                     //CodeerContext spiegelContext = new CodeerContext(new SpiegelStrategy(), text);
-                    codeerContext.setStrategy(new SpiegelStrategy());
+                    codeerContext.setStrategy(StrategyFactory.createStrategy("MIRROR"));
                     if(choice.equals("Encode")) {
                         result = codeerContext.encode();
                         resultLabel.setText(result);
@@ -82,7 +79,7 @@ public class Labo2UI {
                         resultLabel.setText(result);
                     }
             } else if(strategy.equals("RANDOM")) {
-                codeerContext.setStrategy(new RandomCypherStrategy());
+                codeerContext.setStrategy(StrategyFactory.createStrategy("RANDOM"));
                 if(choice.equals("Encode")) {
                     result = codeerContext.encode();
                     resultLabel.setText(result);
