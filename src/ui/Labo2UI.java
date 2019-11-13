@@ -1,6 +1,6 @@
 package ui;
 
-import domain.*;
+import service.Labo2Service;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,11 +18,11 @@ public class Labo2UI {
     public Labo2UI(Stage stage) {
         Label choiceLabel = new Label("Choose method: ");
         ComboBox<String> choiceCombo = new ComboBox<>();
-        CodeerContext codeerContext = new CodeerContext();
+        Labo2Service service = new Labo2Service();
         Label encodeChoiceLabel = new Label("Encode? / Decode?");
 
         ComboBox<String> encodeOrDecodeCombo = new ComboBox<>();
-        ObservableList<String> types = FXCollections.observableList(codeerContext.getStrategyLijst());
+        ObservableList<String> types = FXCollections.observableList(service.getStrategyList());
         choiceCombo.setItems(types);
         Label textLabel = new Label("Enter text: ");
         TextField textField = new TextField();
@@ -53,38 +53,38 @@ public class Labo2UI {
             String text = textField.getText();
             String result;
 
-            codeerContext.setText(text);
+            service.setText(text);
             if(strategy == null || strategy.trim().isEmpty()) {
                 throw new IllegalArgumentException("Strategy cannot be empty");
             }
 
             if(strategy.equals("CAESAR")) {
-                codeerContext.setStrategy(StrategyFactory.createStrategy("CAESAR"));
+                service.setStrategy(service.createStrategy("CAESAR"));
 
                 if(choice.equals("Encode")) {
-                        result = codeerContext.encode();
+                        result = service.encode();
                         resultLabel.setText(result);
                     } else {
-                        result = codeerContext.decode();
+                        result = service.decode();
                         resultLabel.setText(result);
                     }
                 } else if(strategy.equals("MIRROR")) {
                     //CodeerContext spiegelContext = new CodeerContext(new SpiegelStrategy(), text);
-                    codeerContext.setStrategy(StrategyFactory.createStrategy("MIRROR"));
+                    service.setStrategy(service.createStrategy("MIRROR"));
                     if(choice.equals("Encode")) {
-                        result = codeerContext.encode();
+                        result = service.encode();
                         resultLabel.setText(result);
                     } else {
-                        result = codeerContext.decode();
+                        result = service.decode();
                         resultLabel.setText(result);
                     }
             } else if(strategy.equals("RANDOM")) {
-                codeerContext.setStrategy(StrategyFactory.createStrategy("RANDOM"));
+                service.setStrategy(service.createStrategy("RANDOM"));
                 if(choice.equals("Encode")) {
-                    result = codeerContext.encode();
+                    result = service.encode();
                     resultLabel.setText(result);
                 } else {
-                    result = codeerContext.decode();
+                    result = service.decode();
                     resultLabel.setText(result);
                 }
 
